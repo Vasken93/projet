@@ -13,16 +13,9 @@ import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
-/**
- * classe Fenetre jeu servant à representer la GUI du jeu d'echec, contient la planche de jeu, les boutons debuter et reset,
- * et le champ texte informant le joueur sur le tour. Contient également deux jPanel contenant les pieces mangées.
- * 
- * @author Francois Allard
- */
+
 public class FenetreJeu extends JFrame {
-	/**
-	 * Echiquier du jeu, contient le tableau de case.
-	 */
+	
 	private Echiquier e; // echiquier
 	private JLabel[][] tab; // tableau de JLabels
 
@@ -35,10 +28,7 @@ public class FenetreJeu extends JFrame {
 	private JButton boutonReset = new JButton();
 	private JPanel panelblanc = new JPanel();
 	private JPanel panelnoir = new JPanel();
-	
-	/**
-	 * Constructeur, appelle méthode JBInit
-	 */
+
 	public FenetreJeu() 
 	{
 		try {
@@ -49,13 +39,11 @@ public class FenetreJeu extends JFrame {
 
 	}
 	
-	/**
-	 * initialise la surface de jeu. Créé tout les élements et initialise leur position leur couleur.. etc
-	 */
+
 	private void jbInit() throws Exception {
 
-		tab = new JLabel[8][8]; // crÈation du tableau de JLabel
-		e = new Echiquier(); // crÈation de l'Èchiquier
+		tab = new JLabel[8][8]; // cr√©ation du tableau de JLabel
+		e = new Echiquier(); // cr√©ation de l'√©chiquier
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(784, 585));
@@ -81,14 +69,14 @@ public class FenetreJeu extends JFrame {
 		boutonDebuter.setText("DEBUTER");
 		champTexte.setBounds(new Rectangle(160, 10, 215, 25));
 
-		// les Ècouteurs
+		// les √©couteurs
 		boutonReset.setText("RESET");
 		boutonReset.setBounds(new Rectangle(390, 10, 130, 25));
 		GestionnaireEvenement gest = new GestionnaireEvenement();
 		boutonDebuter.addMouseListener(gest);
 		boutonReset.addMouseListener(gest);
 		
-		//création des labels
+		//cr≈Ωation des labels
 		panelblanc.setBounds(new Rectangle(570, 65, 75, 480));
 		panelblanc.setBackground(new Color(255, 255, 255));
 		panelblanc.setLayout(new FlowLayout());
@@ -101,12 +89,12 @@ public class FenetreJeu extends JFrame {
 		for (int ligne = 0; ligne < 8; ligne++) {
 			a = a == 1 ? 0 : 1;
 			for (int colonne = 0; colonne < 8; colonne++) {
-				tab[colonne][ligne] = new JLabel(); // crÃˆation du JLabel
+				tab[colonne][ligne] = new JLabel(); // cr√å√∂ation du JLabel
 				tab[colonne][ligne].setOpaque(true);
 				panelGrille.add(tab[colonne][ligne]); // ajouter au Panel
 				tab[colonne][ligne].setOpaque(true);
 				tab[colonne][ligne].setHorizontalAlignment(SwingConstants.CENTER); // pour
-				tab[colonne][ligne].addMouseListener(gest); // ajouter l'Ãˆcouteur aux
+				tab[colonne][ligne].addMouseListener(gest); // ajouter l'√å√∂couteur aux
 				if ((colonne + 1) % 2 == a)
 					tab[colonne][ligne].setBackground(new Color(255, 255, 255));
 				else
@@ -117,11 +105,7 @@ public class FenetreJeu extends JFrame {
 
 	}
 
-	/** classe privee pour la gestion des evenement de la souris.
-	 * 
-	 * @author Francois
-	 *
-	 */
+
 	private class GestionnaireEvenement extends MouseAdapter {
 
 		Piece pieceTampon = null;
@@ -134,14 +118,11 @@ public class FenetreJeu extends JFrame {
 
 
 
-		/** methode s'excutant si l'on clique sur la surface de jeu. La methode determine ensuite ou est-ce que l'on cliquer
-		 * et fait les action en consequence
-		 *
-		 */
+	
 		public void mouseClicked(MouseEvent eve) {
-			// si on clique sur le bouton dÈbuter
+			// si on clique sur le bouton d√©buter
 			if (eve.getSource() == boutonDebuter) {
-				//initialise le champ texte, apelle la méthode débuter, et initialise toute les variables 
+				//initialise le champ texte, apelle la m≈Ωthode d≈Ωbuter, et initialise toute les variables 
 				champTexte.setText("C'est le tour aux blanc");
 				boutonDebuter.setEnabled(false);
 				e.debuter(); // code
@@ -153,7 +134,7 @@ public class FenetreJeu extends JFrame {
 				Piece tempo = null;
 				e.debuter(); // code
 
-				// Je place les icônes des pièces sur leur cases respectives
+			
 				while (increment >= -1) {
 					for (int ctr = 0; ctr <= 7; ctr++) {
 						tab[ctr][ligne].setIcon(new ImageIcon(dossierIcone + ordrePiece[ctr] + couleur + ".gif"));
@@ -192,30 +173,30 @@ public class FenetreJeu extends JFrame {
 			}
 			// si on clique sur le bouton reset
 			else if (eve.getSource() == boutonReset) {
-				//j'appelle la éthode RAZ
+				//j'appelle la ≈Ωthode RAZ
 				RAZ();
 
 				
 			}
 
-			else if (eve.getSource() instanceof JLabel) // donc on a cliquÈ sur un Label
+			else if (eve.getSource() instanceof JLabel) // donc on a cliqu√© sur un Label
 			{
 				for (int i = 0; i < 8; i++)
-					//je détermine sur quelle Jlabel on a cliqué
+					//je d≈Ωtermine sur quelle Jlabel on a cliqu≈Ω
 					for (int j = 0; j < 8; j++) 
 						if (eve.getSource() == tab[j][i]) {
 							ligneClic = i;
 							colonneClic = j;
 						}
-					//si on a cliqué sur une case non vide et que le tampon n'est pas null
+					//si on a cliqu≈Ω sur une case non vide et que le tampon n'est pas null
 					if((e.getCase(colonneClic, ligneClic).getPiece() != null | pieceTampon != null) )
 					{
 						//si le tampon est null
 						if(pieceTampon == null )
 						{
-							//si c'est au tour de la couleur de controle à jouer
+							//si c'est au tour de la couleur de controle ÀÜ jouer
 							if(e.getCase(colonneClic, ligneClic).getPiece().getCouleur().equals(couleurControle)){
-								//J'initialise la piece tampon a la piece sur laquelle on a cliqué
+								//J'initialise la piece tampon a la piece sur laquelle on a cliqu≈Ω
 								pieceTampon = e.getCase(colonneClic, ligneClic).getPiece();
 								iconeTampon = (ImageIcon)tab[colonneClic][ligneClic].getIcon();
 								temp = new Position(colonneClic,ligneClic);
@@ -225,12 +206,12 @@ public class FenetreJeu extends JFrame {
 						}
 						else
 						{
-							//je créé un déplacement
+							//je cr≈Ω≈Ω un d≈Ωplacement
 							Deplacement deplacement = new Deplacement(temp, new Position(colonneClic,ligneClic));
-							//je vérifie si le déplacement est valide, si le chemin est possible et si il est possible, pour un pion de manger la piece
+							//je v≈Ωrifie si le d≈Ωplacement est valide, si le chemin est possible et si il est possible, pour un pion de manger la piece
 							if ((pieceTampon.estValide(deplacement) && e.cheminPossible(deplacement)) | e.captureParUnPionPossible(deplacement))
 							{
-								//je créé un jLabel avec l'icône de la pièce manger
+								//je cr≈Ω≈Ω un jLabel avec l'ic‚Ñ¢ne de la pi¬èce manger
 								JLabel manger = new JLabel(tab[colonneClic][ligneClic].getIcon());
 								manger.setHorizontalAlignment(SwingConstants.CENTER);
 								
@@ -240,11 +221,11 @@ public class FenetreJeu extends JFrame {
 								else		
 									panelnoir.add(manger);
 								
-								/* je vérifie si la pièce manger est un roi, si oui le jeu est terminé et L'utilisateurs 
+								/* je v≈Ωrifie si la pi¬èce manger est un roi, si oui le jeu est termin≈Ω et L'utilisateurs 
 								peut choisir si il veut continuer a jouer ou non*/
 								if(e.getCase(colonneClic, ligneClic).getPiece() instanceof Roi)
 								{
-									if(JOptionPane.showConfirmDialog(null, "Félicitation vous avez gagné ! Désirez-vous jouer de nouveau ?\n", "Mine !", JOptionPane.YES_NO_OPTION) == 0){
+									if(JOptionPane.showConfirmDialog(null, "F≈Ωlicitation vous avez gagn≈Ω ! D≈Ωsirez-vous jouer de nouveau ?\n", "Mine !", JOptionPane.YES_NO_OPTION) == 0){
 										RAZ();
 										tab[temp.getColonne()][temp.getLigne()].setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0),0));
 									}
@@ -253,9 +234,9 @@ public class FenetreJeu extends JFrame {
 										System.exit(0);
 
 								}
-								else//si on dépose la piece sur une case vide
+								else//si on d≈Ωpose la piece sur une case vide
 								{
-									//on met le tampon sur la case vide et on vide le tampon après
+									//on met le tampon sur la case vide et on vide le tampon apr¬ès
 									e.getCase(temp.getColonne(), temp.getLigne()).setPiece(null);
 									tab[temp.getColonne()][temp.getLigne()].setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0),0));
 	
@@ -290,7 +271,6 @@ public class FenetreJeu extends JFrame {
 		}
 	}
 
-	//Je remet tout les attributs de la classe a 0
 	public void RAZ()
 	{
 		for (int ligne = 0; ligne < 8; ligne++) 
@@ -311,11 +291,11 @@ public class FenetreJeu extends JFrame {
 
 	}
 
-	// main pour pouvoir exÈcuter l'interface graphique
+	// main pour pouvoir ex√©cuter l'interface graphique
 	public static void main(String[] args) {
 		FenetreJeu j = new FenetreJeu();
 		j.setVisible(true);
 		j.setLocation(100, 130);
-		j.setDefaultCloseOperation(EXIT_ON_CLOSE); // ferme le processus associÈ
+		j.setDefaultCloseOperation(EXIT_ON_CLOSE); // ferme le processus associ√©
 	}
 }
