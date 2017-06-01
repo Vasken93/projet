@@ -1,9 +1,5 @@
 package projetSynthese;
-/**
- * Interface contenant les prototype des methodes que devra implementer un echiquier
- * 
- * @author Francois Allard
- */
+
 public interface MethodesEchiquier 
 {
 	
