@@ -1,23 +1,13 @@
 
-// Copyright (c) 2000 CVM
+
 package Test;
 import static org.junit.Assert.*;
 
 import org.junit.*;
 
 import projetSynthese.*;
-/**
- * packageTP3.TestEchecsPartie1
- * <P>
- * @author Département d'informatique
- */
+
 public class testJunit {
-
-  /**
-   * Constructor
-   */
-   
-
 
  
  
